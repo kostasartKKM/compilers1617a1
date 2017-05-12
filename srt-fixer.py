@@ -1,5 +1,4 @@
 
-
 import sys
 import re
 import argparse
@@ -35,17 +34,22 @@ with open(args.fname,'r+',newline='') as ifp:
 			left_seconds_old = m.group(3)
 			left_seconds_new = float(left_seconds_old)+args.offset
 			left_seconds_final = str(left_seconds_new)
-			changing_left = re.sub(restr,r'\3'+left_seconds_final,line)
+			#changing_left = re.sub(restr,r'\3'+left_seconds_final,line)
+			# -- anti gia thn xrhsh tou sub, tha kanw xrhsh string formating
+			line = '{}:{}:{},{} --> {}:{}:{},{}'.format(m.group(1),m.group(2),left_seconds_final,m.group(4),m.group(5),m.group(6),m.group(7),m.group(8))
 			
 			# -- Gia ta seconds sta deksia
 			right_seconds_old = m.group(7)
 			right_seconds_new = float(right_seconds_old)+args.offset
 			right_seconds_final = str(right_seconds_new)
-			changing_right = re.sub(restr,r'\7'+right_seconds_final,line)
-		
+			#changing_right = re.sub(restr,r'\7'+right_seconds_final,line)
+			# -- anti gia thn xrhsh tou sub, tha kanw xrhsh string formating
+			line = '{}:{}:{},{} --> {}:{}:{},{}'.format(m.group(1),m.group(2),left_seconds_final,m.group(4),m.group(5),m.group(6),right_seconds_final,m.group(8))
 		
 
 		sys.stdout.write(line)
+		# -- edw dhmiourgw ena arxeio test-output.srt kai kanw append line by line tis kainourgies grammes.
+		sys.stdout = open('test-output.srt', 'a')
 
 		
 ifp.close()		
